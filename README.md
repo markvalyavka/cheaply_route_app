@@ -16,7 +16,6 @@
 * [License](#license)
 * [Contact](#contact)
 
-#### License
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
