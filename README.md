@@ -17,6 +17,7 @@
 * [Contact](#contact)
 
 
+### License
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -46,7 +47,6 @@ git clone https://github.com/markvalyavka/cheaply_route_app.git
 Usage examples in progress..
 
 
-### License
 
 <!-- CONTRIBUTING -->
 ## Contributing
