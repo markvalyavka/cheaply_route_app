@@ -90,5 +90,5 @@ Project Link: [https://github.com/markvalyavka/cheaply_route_app](https://github
 [issues-shield]: https://img.shields.io/github/issues/Naereen/StrapDown.js.svg
 [issues-url]: https://github.com/markvalyavka/cheaply_route_app/issues
 [license-shield]: https://img.shields.io/badge/License-MIT-blue.svg
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[license-url]: https://github.com/markvalyavka/cheaply_route_app/blob/master/LICENSE
 [product-screenshot]: images/screenshot.png
