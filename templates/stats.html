@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CheaplyRoute</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/logo.svg') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap" rel="stylesheet">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stats.css') }}">
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .navbar {
+            background-color: #545C66;
+        }
+    </style>
+    <!-- NavBar -->
+    <div class="container-fluid">
+        <div class="row navbar">
+            <div class="col-lg-4 col-md-4 col-4">
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-4">
+                <div class="logo d-flex justify-content-center">
+                    <a href="/"><span style="color: white;">CheaplyRoutes</span></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-4">
+            </div>
+        </div>
+    </div>
+    <!-- MAIN SECTION -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+                <div id="hours" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <script>
+                $(document).ready(function() {
+                    $('#hours').highcharts({
+                        title: {
+                            text: 'Taxi pricing based on the hour of the day'
+                        },
+
+                        subtitle: {
+                            text: '.'
+                        },
+
+                        yAxis: {
+                            title: {
+                                text: 'Price'
+                            }
+                        },
+
+                        xAxis: {
+                            accessibility: {
+                                rangeDescription: 'Hours'
+                            }
+                        },
+
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                        },
+
+                        plotOptions: {
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+                                pointStart: 0
+                            }
+                        },
+
+                        series: [{
+                            name: 'BOLT',
+                            data: {{ hours[0] }}
+                        }, {
+                            name: 'UKLON',
+                            data: {{ hours[1] }}
+                        }],
+
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+
+                    });
+                });
+                </script>
+            </div>
+            <div class="col-lg-12 col-md-12 col-12">
+                <div id="days" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <script>
+                $(document).ready(function() {
+                    $('#days').highcharts({
+                        title: {
+                            text: 'Taxi pricing based on day of the week'
+                        },
+                        subtitle: {
+                            text: '.'
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Price'
+                            }
+                        },
+                        xAxis: {
+                            accessibility: {
+                                rangeDescription: 'Days'
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle'
+                        },
+                        plotOptions: {
+                            series: {
+                                label: {
+                                    connectorAllowed: false
+                                },
+                                pointStart: 0
+                            }
+                        },
+                        series: [{
+                            name: 'BOLT',
+                            data: {{ days[0] }}
+                        }, {
+                            name: 'UKLON',
+                            data: {{ days[1] }}
+                        }],
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 500
+                                },
+                                chartOptions: {
+                                    legend: {
+                                        layout: 'horizontal',
+                                        align: 'center',
+                                        verticalAlign: 'bottom'
+                                    }
+                                }
+                            }]
+                        }
+                    });
+                });
+                </script>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CheaplyRoute</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/logo.svg') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/car_retrieval.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
+</head>
+
+<body>
+    <!-- NavBar -->
+    <div class="container-fluid">
+        <div class="row navbar">
+            <div class="col-lg-4 col-md-1 col-1">
+
+            </div>
+            <div class="col-lg-4 col-md-6 col-6">
+                <div class="logo d-flex justify-content-center">
+                    <a href="/"><span>CheaplyRoutes</span></a>
+                </div>
+            </div>
+            <div class="logo col-lg-4 col-md-5 col-5">
+                <a href="/stats"><span style="font-size: 20px;">Stats</span></a>
+            </div>
+        </div>
+    </div>
+    <!-- MainSection -->
+    <form action="{{ url_for('result') }}" method="post" id="main_form">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-12 col-12">
+                    <div class="section container-fluid">
+                        <div class="row">
+                            <div class="section_option mx-auto d-block">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-3">
+                                        <div class="circle_icon_pressed">
+                                            <img src="{{ url_for('static',filename='images/icons/marker_a.svg') }}" alt="Marker A">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-8">
+                                        <input type="text" class="section_input address_holder" name="origin" placeholder="Enter Your Starting Point...">
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-1"></div>
+
+                                </div>
+                            </div>
+
+                            <div class="section_chapter_image">
+                                <img class="img-fluid" src="{{ url_for('static',filename='images/icons/dash_path.svg') }}" alt="">
+                            </div>
+                            <div class="section_option mx-auto d-block" style="margin-top:0px; margin-bottom:30px;">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-3">
+                                        <div class="circle_icon_pressed">
+                                            <img src="{{ url_for('static',filename='images/icons/marker_b.svg') }}" alt="Marker B">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-8">
+                                        <input type="text" class="section_input destination_holder" name="destination" placeholder="Enter Your Finish Point...">
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-12 col-12">
+                    <div class="section container-fluid">
+                        <div class="row">
+                            <!-- TRANSIT -->
+                            <div class="section_option mx-auto d-block">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <div>
+                                            <img src="{{ url_for('static',filename='images/icons/transit.svg') }}" alt="Bus icon" style="margin:6px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-4 section_option_header">
+                                        Transit
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <label for="checkbox_transit">
+                                            <div class="section_btn" data-type="select_transit">
+                                                Select
+                                            </div>
+                                        </label>
+                                        <input type="checkbox" value="select_transit" id="checkbox_transit" name="mode" style="display: none">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- TAXI -->
+                            <div class="section_option mx-auto d-block">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <div>
+                                            <img src="{{ url_for('static',filename='images/icons/taxi.svg') }}" alt="Taxi icon" style="margin:6px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-4 section_option_header">
+                                        Taxi
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <label for="checkbox_taxi">
+                                            <div class="section_btn" data-type="select_taxi">
+                                                Select
+                                            </div>
+                                        </label>
+                                        <input type="checkbox" value="select_taxi" id="checkbox_taxi" name="mode" style="display: none">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CYCLING -->
+                            <div class="section_option mx-auto d-block">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <div>
+                                            <img src="{{ url_for('static',filename='images/icons/cycling.svg') }}" alt="Cycling icon" style="margin:6px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-4 section_option_header">
+                                        Cycling
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <label for="checkbox_cycling">
+                                            <div class="section_btn" data-type="select_cycling">
+                                                Select
+                                            </div>
+                                        </label>
+                                        <input type="checkbox" value="select_cycling" id="checkbox_cycling" name="mode" style="display: none">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- WALKING -->
+                            <div class="section_option mx-auto d-block">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <div>
+                                            <img src="{{ url_for('static',filename='images/icons/walking.svg') }}" alt="Walking icon" style="margin:8px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-4 section_option_header">
+                                        Walking
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <label for="checkbox_walking">
+                                            <div class="section_btn" data-type="select_walking">
+                                                Select
+                                            </div>
+                                        </label>
+                                        <input type="checkbox" value="select_walking" id="checkbox_walking" name="mode" style="display: none">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DRIVING -->
+                            <div class="section_option mx-auto d-block" style="margin-bottom:30px; ">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <div>
+                                            <img src="{{ url_for('static',filename='images/icons/driving.svg') }}" alt="Driving icon" style="margin:9px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-4 section_option_header">
+                                        Your Car
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <div class="section_btn" class="btn btn-primary" id="driving_btn" data-type="select_car">
+                                            Choose
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- CarSelectWrapper -->
+                                <div class="section" id="car_menu" style="display:none; margin-top: 0px;">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-6">
+                                            <select name="brands[]" id="select_brand" style=" margin:20px;" onchange="selectBrand(this);" class="section_btn">
+                                                <option value="">Select your car</option>
+                                                <option value="265" title="Acura">Acura</option>
+                                                <option value="267" title="Alfa Romeo">Alfa Romeo</option>
+                                                <option value="32" title="Aston Martin">Aston Martin</option>
+                                                <option value="3" title="Audi">Audi</option>
+                                                <option value="276" title="Bentley">Bentley</option>
+                                                <option value="22" title="BMW">BMW</option>
+                                                <option value="817" title="Bogdan">Bogdan</option>
+                                                <option value="433" title="Brilliance">Brilliance</option>
+                                                <option value="282" title="Buick">Buick</option>
+                                                <option value="283" title="Cadillac">Cadillac</option>
+                                                <option value="470" title="Chana">Chana</option>
+                                                <option value="37" title="Chery">Chery</option>
+                                                <option value="4" title="Chevrolet">Chevrolet</option>
+                                                <option value="287" title="Chrysler">Chrysler</option>
+                                                <option value="61" title="Citroen">Citroen</option>
+                                                <option value="25" title="Dacia">Dacia</option>
+                                                <option value="292" title="Dadi">Dadi</option>
+                                                <option value="10" title="Daewoo">Daewoo</option>
+                                                <option value="294" title="Daihatsu">Daihatsu</option>
+                                                <option value="844" title="Datsun">Datsun</option>
+                                                <option value="300" title="Dodge">Dodge</option>
+                                                <option value="848" title="DS">DS</option>
+                                                <option value="821" title="FAW">FAW</option>
+                                                <option value="26" title="Ferrari">Ferrari</option>
+                                                <option value="24" title="Fiat">Fiat</option>
+                                                <option value="810" title="Fisker">Fisker</option>
+                                                <option value="14" title="Ford">Ford</option>
+                                                <option value="36" title="Geely">Geely</option>
+                                                <option value="308" title="GMC">GMC</option>
+                                                <option value="310" title="Great Wall">Great Wall</option>
+                                                <option value="484" title="Groz">Groz</option>
+                                                <option value="847" title="Haval">Haval</option>
+                                                <option value="8" title="Honda">Honda</option>
+                                                <option value="316" title="Hummer">Hummer</option>
+                                                <option value="62" title="Hyundai">Hyundai</option>
+                                                <option value="318" title="Infiniti">Infiniti</option>
+                                                <option value="698" title="JAC">JAC</option>
+                                                <option value="325" title="Jaguar">Jaguar</option>
+                                                <option value="326" title="Jeep">Jeep</option>
+                                                <option value="11" title="KIA">KIA</option>
+                                                <option value="59" title="Lada">Lada</option>
+                                                <option value="330" title="Lamborghini">Lamborghini</option>
+                                                <option value="331" title="Lancia">Lancia</option>
+                                                <option value="332" title="Land Rover">Land Rover</option>
+                                                <option value="28" title="Lexus">Lexus</option>
+                                                <option value="471" title="Lifan">Lifan</option>
+                                                <option value="335" title="Lincoln">Lincoln</option>
+                                                <option value="346" title="Maserati">Maserati</option>
+                                                <option value="347" title="Maybach">Maybach</option>
+                                                <option value="5" title="Mazda">Mazda</option>
+                                                <option value="41" title="Mercedes-Benz">Mercedes-Benz</option>
+                                                <option value="814" title="MG">MG</option>
+                                                <option value="40" title="MINI">MINI</option>
+                                                <option value="29" title="Mitsubishi">Mitsubishi</option>
+                                                <option value="6" title="Nissan">Nissan</option>
+                                                <option value="7" title="Opel">Opel</option>
+                                                <option value="60" title="Peugeot">Peugeot</option>
+                                                <option value="364" title="Porsche">Porsche</option>
+                                                <option value="846" title="Ravon">Ravon</option>
+                                                <option value="27" title="Renault">Renault</option>
+                                                <option value="369" title="Rolls-Royce">Rolls-Royce</option>
+                                                <option value="371" title="Saab">Saab</option>
+                                                <option value="818" title="SAIPA">SAIPA</option>
+                                                <option value="34" title="SEAT">SEAT</option>
+                                                <option value="378" title="Shuanghuan">Shuanghuan</option>
+                                                <option value="12" title="Skoda">Skoda</option>
+                                                <option value="816" title="Smart">Smart</option>
+                                                <option value="382" title="SouEast">SouEast</option>
+                                                <option value="487" title="Spyker">Spyker</option>
+                                                <option value="35" title="SsangYong">SsangYong</option>
+                                                <option value="2" title="Subaru">Subaru</option>
+                                                <option value="9" title="Suzuki">Suzuki</option>
+                                                <option value="815" title="TATA">TATA</option>
+                                                <option value="30" title="Toyota">Toyota</option>
+                                                <option value="31" title="Volkswagen">Volkswagen</option>
+                                                <option value="39" title="Volvo">Volvo</option>
+                                                <option value="845" title="Zotye">Zotye</option>
+                                                <option value="38" title="ZXAuto">ZXAuto</option>
+                                                <option value="33" title="ГАЗ">ГАЗ</option>
+                                                <option value="405" title="ЗАЗ">ЗАЗ</option>
+                                                <option value="428" title="УАЗ">УАЗ</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-6 select_model">
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-lg-12 col-md-12 col-12 select_spec ">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- EndOfWrapper -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="section_btn mx-auto d-block" id="submit_data" style="width: 80%">Calculate</button>
+            </div>
+        </div>
+    </form>
+    <img class="loading" src="{{ url_for('static',filename='images/loading/cloud_1.svg') }}" id="cloud_1" style="display: none;">
+    <img class="loading" src="{{ url_for('static',filename='images/loading/cloud_2.svg') }}" id="cloud_2" style="display: none;">
+    <img class="loading" src="{{ url_for('static',filename='images/loading/cloud_3.svg') }}" id="cloud_3" style="display: none;">
+    <h4 class="loading" id="loading_header">LOADING...</h4>
+
+
+
+</body>
+
+</html>

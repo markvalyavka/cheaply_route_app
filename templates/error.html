@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CheaplyRoute</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/logo.svg') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/error.css') }}">
+</head>
+
+<body>
+    <!-- NavBar -->
+    <div class="container-fluid">
+        <div class="row navbar">
+            <div class="col-lg-4 col-md-1 col-1">
+
+            </div>
+            <div class="col-lg-4 col-md-6 col-6">
+                <div class="logo d-flex justify-content-center">
+                    <a href="/"><span>CheaplyRoutes</span></a>
+                </div>
+            </div>
+            <div class="logo col-lg-4 col-md-5 col-5">
+                <a href="/stats"><span style="font-size: 20px;">Stats</span></a>
+            </div>
+        </div>
+    </div>
+    <!-- MAIN SECTION -->
+    <div class="container">
+        <h4 class="loading error_header">OOPS...</h4>
+        <h4 class="loading error_text error_header">{{ error_msg }}</h4>
+
+        <svg width="202" height="124" class="loading" id="error_1" viewBox="0 0 452 374" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="17" y="17" width="418" height="340" rx="51" class="error_stroke" stroke="black" stroke-width="34"/>
+            <rect x="85" y="253" width="282" height="31" rx="15.5" class="error_fill" fill="black"/>
+            <rect x="245" y="265" width="91" height="63" rx="19" class="error_fill" fill="black"/>
+            <rect x="86" y="87.8317" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-45 86 87.8317)" fill="black"/>
+            <rect x="108.832" y="149.756" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-135 108.832 149.756)" fill="black"/>
+            <rect x="283" y="88.8317" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-45 283 88.8317)" fill="black"/>
+            <rect x="305.832" y="150.756" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-135 305.832 150.756)" fill="black"/>
+        </svg>
+
+        <svg width="202" height="124" class="loading" id="error_2" viewBox="0 0 452 374" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="17" y="17" width="418" height="340" rx="51" class="error_stroke" stroke="black" stroke-width="34"/>
+            <rect x="85" y="253" width="282" height="31" rx="15.5" class="error_fill" fill="black"/>
+            <rect x="245" y="265" width="91" height="63" rx="19" class="error_fill" fill="black"/>
+            <rect x="86" y="87.8317" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-45 86 87.8317)" fill="black"/>
+            <rect x="108.832" y="149.756" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-135 108.832 149.756)" fill="black"/>
+            <rect x="283" y="88.8317" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-45 283 88.8317)" fill="black"/>
+            <rect x="305.832" y="150.756" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-135 305.832 150.756)" fill="black"/>
+        </svg>
+
+        <svg width="202" height="124" class="loading" id="error_3" viewBox="0 0 452 374" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="17" y="17" width="418" height="340" rx="51" class="error_stroke" stroke="black" stroke-width="34"/>
+            <rect x="85" y="253" width="282" height="31" rx="15.5" class="error_fill" fill="black"/>
+            <rect x="245" y="265" width="91" height="63" rx="19" class="error_fill" fill="black"/>
+            <rect x="86" y="87.8317" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-45 86 87.8317)" fill="black"/>
+            <rect x="108.832" y="149.756" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-135 108.832 149.756)" fill="black"/>
+            <rect x="283" y="88.8317" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-45 283 88.8317)" fill="black"/>
+            <rect x="305.832" y="150.756" width="29.4604" height="86.1596" rx="14.7302" class="error_fill" transform="rotate(-135 305.832 150.756)" fill="black"/>
+        </svg>
+    </div>
+    <script>
+        function pageRedirect() {
+            $(location).prop('href', "/");
+        }
+        setTimeout("pageRedirect()", 7000);
+    </script>
+
+</body>
+
+</html>

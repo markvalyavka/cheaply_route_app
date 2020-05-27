@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CheaplyRoute</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/logo.svg') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static',filename='js/secondary.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/secondary.css') }}">
+</head>
+
+<body>
+    <!-- NavBar -->
+    <div class="container-fluid">
+        <div class="row navbar">
+            <div class="col-lg-4 col-md-1 col-1">
+
+            </div>
+            <div class="col-lg-4 col-md-6 col-6">
+                <div class="logo d-flex justify-content-center">
+                    <a href="/"><span>CheaplyRoutes</span></a>
+                </div>
+            </div>
+            <div class="logo col-lg-4 col-md-5 col-5">
+                <a href="/stats"><span style="font-size: 20px;">Stats</span></a>
+            </div>
+        </div>
+    </div>
+    <!-- MainSection -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 col-12">
+                <div class="section container-fluid" style="height: 750px;">
+                    <!--The div element for the map -->
+                    <div id="main_google_map"></div>
+                    <style>
+                        #main_google_map {
+                            height: 97%;
+                            border-radius: 3%;
+                        }
+                    </style>
+                    <script>
+                        // Initialize and add the map
+                        function initMap() {
+                          // The location of Uluru
+                          var origin = {lat: {{ map_coords[0][0] }}, lng: {{ map_coords[0][1]}} };
+                          var destination = {lat: {{ map_coords[1][0] }}, lng: {{ map_coords[1][1]}} };
+                          // The map, centered at Uluru
+                          var map = new google.maps.Map(
+                              document.getElementById('main_google_map'), {zoom: 10, center: origin});
+                          // The marker, positioned at Uluru
+                          var origin_marker = new google.maps.Marker({position: origin, map: map, label: "A"});
+                          var destination_marker = new google.maps.Marker({position: destination, map: map, label: "B"});
+                        };
+                    </script>
+                    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9KQykEhkPfdUaCnfqG4w8mhq0abZgP8c&callback=initMap"></script>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12 col-12">
+                <div class="section container-fluid">
+                    <div class="row">
+
+                        <div class="header_pressed mx-auto d-block">
+                            Price to Time Comparison:
+                        </div>
+
+                        <!-- CHEAPEST OPTION -->
+                        <div class="section_option mx-auto d-block">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-8">
+                                    <div class="suggestion_header_pressed header_pressed">
+                                        Cheapest option:
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-4">
+                                    <div class="suggestion_header_pressed suggestion_accent_pressed mx-auto d-block">
+                                        {% if cheapest_fastest['cheapest']['price'] != "no data available" %}
+                                            {{ cheapest_fastest['cheapest']['price'] }} UAH
+                                        {% else %}
+                                            no data available
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-3">
+                                    <div>
+                                        {% if cheapest_fastest['cheapest']['icon_url'] is defined %}
+                                            <img src="{{ url_for('static',filename=cheapest_fastest['cheapest']['icon_url']) }}" alt="blank icon" style="margin:9px;">
+                                        {% else %}
+                                            <img src="{{ url_for('static',filename='images/icons/walking.svg') }}" alt="Walking icon" style="margin:9px;">
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-9">
+                                    <div class="suggestion_body_pressed suggestion_header_pressed header_pressed mx-auto d-block">
+                                        <ul>
+                                            {% if (cheapest_fastest['cheapest']['name'] is defined) and (cheapest_fastest['cheapest']['duration'] is defined) %}
+                                                <li>Transport: "<span>{{ cheapest_fastest['cheapest']['name'] }}</span>"</li>
+                                                <li>Time: <span>{{ cheapest_fastest['cheapest']['duration'] }}</span></li>
+                                            {% else %}
+                                                <li>Transport: "<span>no data available</span>"</li>
+                                                <li>Time: <span>no data available</span></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- VERSUS ICON -->
+                        <div class="col-lg-4 col-md-4 col-4">
+                            <hr>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-4">
+                            <div class="circle_icon_above mx-auto d-block">VS</div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-4">
+                            <hr>
+                        </div>
+
+                        <!-- Fastest OPTION -->
+                        <div class="section_option mx-auto d-block" style="margin-top: 0px;margin-bottom: 20px;">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-8">
+                                    <div class="suggestion_header_pressed header_pressed">
+                                        Fastest option:
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-4">
+                                    <div class="suggestion_header_pressed suggestion_accent_pressed mx-auto d-block">
+                                        {% if cheapest_fastest['fastest']['price'] != "no data available" %}
+                                            {{ cheapest_fastest['fastest']['price'] }} UAH
+                                        {% else %}
+                                            no data available
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-3">
+                                    <div>
+                                        <img src="{{ url_for('static',filename=cheapest_fastest['fastest']['icon_url']) }}" alt="blank icon" style="margin:9px;">
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-9">
+                                    <div class="suggestion_body_pressed suggestion_header_pressed header_pressed mx-auto d-block">
+                                        <ul>
+                                            <li>Transport: "<span>{{ cheapest_fastest['fastest']['name'] }}</span>"</li>
+                                            <li>Time: <span>{{ cheapest_fastest['fastest']['duration'] }}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-12 col-12">
+                <hr>
+            </div>
+            <div class="col-lg-4 col-md-12 col-12">
+                <div class="extra_banner circle_icon_above">
+                    Hey! Check Out Other Ways..
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-12 col-12">
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+            <!-- CARDS CAROUSEL -->
+                <div class="section container-fluid">
+                    <div class="carousel slide" data-ride="carousel" id="extra_options_carousel">
+                        <div class="carousel-inner" id="menu_carousel_inner">
+                            <!--
+                            <div class="carousel-item active">
+                                <div class="row"></div>
+                            </div>
+                            <div class="carousel-item ">
+                                <div class="row"></div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-6">
+                <a class="circle_icon_above section_btn carousel-control-prev mx-auto d-block" href="#extra_options_carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </div>
+            <div class="col-lg-6 col-md-6 col-6">
+                <a class="circle_icon_above section_btn carousel-control-next mx-auto d-block" href="#extra_options_carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+    <!-- DATA-TO-WRAP -->
+    <div id="data_wrapper">
+        {% if 'select_taxi' in selected_modes %}
+        <div class="card_item">
+            <div class="section_option mx-auto d-block" style="margin-top: 0px;margin-bottom: 20px;">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-4">
+                        <div>
+                            <img src="{{ url_for('static',filename='images/icons/uklon.svg') }}" alt="Uklon icon" style="margin:9px;">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-8">
+                        <div class="suggestion_header_pressed header_pressed" style="margin-top: 20px;">
+                            Taxi [Uklon]
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="suggestion_body_pressed suggestion_header_pressed header_pressed mx-auto d-block">
+                            <ul>
+                                <li>Transport: "<span>Taxi</span>"</li>
+                                <li>Service: "<span>Uklon</span>"</li>
+                                <li>Offer: "<span>Standart</span>" </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="suggestion_header_pressed suggestion_accent_pressed price_block mx-auto d-block">
+                        {{result['taxi']['uklon']['Standard']}} UAH
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endif %} {% if 'select_taxi' in selected_modes %}
+        <div class="card_item">
+
+            <div class="section_option mx-auto d-block" style="margin-top: 0px;margin-bottom: 20px;">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-4">
+                        <div>
+                            <img src="{{ url_for('static',filename='images/icons/bolt.svg') }}" alt="Bolt icon" style="margin:9px;">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-8">
+                        <div class="suggestion_header_pressed header_pressed" style="margin-top: 20px;">
+                            Taxi [Bolt]
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="suggestion_body_pressed suggestion_header_pressed header_pressed mx-auto d-block">
+                            <ul>
+                                <li>Transport: "<span>Taxi</span>"</li>
+                                <li>Service: "<span>Bolt</span>"</li>
+                                <li>Offer: "<span>Standart</span>" </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="suggestion_header_pressed suggestion_accent_pressed price_block mx-auto d-block">
+                        {{result['taxi']['bolt']['Bolt']}} UAH
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endif %} {% if 'select_walking' in selected_modes %}
+        <div class="card_item">
+            <div class="section_option mx-auto d-block" style="margin-top: 0px;margin-bottom: 20px;">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-4">
+                        <div>
+                            <img src="{{ url_for('static',filename='images/icons/walking.svg') }}" alt="Walking icon" style="margin:9px;">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-8">
+                        <div class="suggestion_header_pressed header_pressed" style="margin-top: 20px;">
+                            Walking
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="suggestion_body_pressed suggestion_header_pressed header_pressed mx-auto d-block">
+                            <ul>
+                                <li>Distance: <span>{{result['walking']['distance'][0]}}</span></li>
+                                <li>Time: <span>{{result['walking']['duration'][0]}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="suggestion_header_pressed suggestion_accent_pressed price_block mx-auto d-block">
+                        Free
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endif %} {% if 'select_cycling' in selected_modes %}
+        <div class="card_item">
+
+            <div class="section_option mx-auto d-block" style="margin-top: 0px;margin-bottom: 20px;">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-4">
+                        <div>
+                            <img src="{{ url_for('static',filename='images/icons/cycling.svg') }}" alt="Cycling icon" style="margin:9px;">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-8">
+                        <div class="suggestion_header_pressed header_pressed" style="margin-top: 20px;">
+                            Cycling
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="suggestion_body_pressed suggestion_header_pressed header_pressed mx-auto d-block">
+                            <ul>
+                                <li>Distance: <span>{{result['cycling']['distance'][0]}}</span></li>
+                                <li>Time: <span>{{result['cycling']['duration'][0]}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="suggestion_header_pressed suggestion_accent_pressed price_block mx-auto d-block">
+                        Free
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endif %} {% if 'select_transit' in selected_modes %}
+        <div class="card_item">
+            <div class="section_option mx-auto d-block" style="margin-top: 0px;margin-bottom: 20px;">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-4">
+                        <div>
+                            <img src="{{ url_for('static',filename='images/icons/transit.svg') }}" alt="Transit icon" style="margin:9px;">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-8">
+                        <div class="suggestion_header_pressed header_pressed" style="margin-top: 20px;">
+                            Transit
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="suggestion_body_pressed suggestion_header_pressed header_pressed mx-auto d-block">
+                            <ul>
+                                <li>Transport: "<span>Public transport</span>"</li>
+                                <li>Distance: <span>{{result['transit']['distance'][0]}}</span></li>
+                                <li>Time: <span>{{result['transit']['duration'][0]}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="suggestion_header_pressed suggestion_accent_pressed price_block mx-auto d-block">
+                        {% if result['transit']['price'] != None %}
+                            {{ result['transit']['price'] }} UAH
+                        {% else %}
+                            no data available
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endif %}{% if 'select_driving' in selected_modes %}
+        <div class="card_item">
+            <div class="section_option mx-auto d-block" style="margin-top: 0px;margin-bottom: 20px;">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-4">
+                        <div>
+                            <img src="{{ url_for('static',filename='images/icons/driving.svg') }}" alt="Driving icon" style="margin:9px;">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-8">
+                        <div class="suggestion_header_pressed header_pressed" style="margin-top: 20px;">
+                            Driving
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="suggestion_body_pressed suggestion_header_pressed header_pressed mx-auto d-block">
+                            <ul>
+                                <li>Transport: "<span>Driving</span>"</li>
+                                <li>Distance: <span>{{result['driving']['distance'][0]}}</span></li>
+                                <li>Time: <span>{{result['driving']['duration'][0]}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="suggestion_header_pressed suggestion_accent_pressed price_block mx-auto d-block">
+                        {{result['driving']['price']}} UAH
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+    <!-- DATA-TO-WRAP^ -->
+</body>
+
+</html>
