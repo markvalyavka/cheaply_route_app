@@ -2,7 +2,7 @@
 [![made-with-python][made-with-python-shield]][made-with-python-url]
 [![MIT License][license-shield]][license-url]
 
-[Website](https://cheaplyroutes.herokuapp.com/)
+**[Website](https://cheaplyroutes.herokuapp.com/)**
 
 
 
@@ -42,8 +42,12 @@ git clone https://github.com/markvalyavka/cheaply_route_app.git
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+### Example of main page:
+![Приклад головної сторінки](https://github.com/markvalyavka/cheaply_route_app/blob/master/examples/main_page.png)
+### Example of the result page:
+![Приклад результату](https://github.com/markvalyavka/cheaply_route_app/blob/master/examples/result_page.png)
+![Приклад результату](https://github.com/markvalyavka/cheaply_route_app/blob/master/examples/result_page_2.png)
 
-Usage examples in progress..
 
 
 
@@ -70,8 +74,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Markiyan Valyavka - [github](https://github.com/markvalyavka) - valyavka@ucu.edu.ua
-Andriy Bek - [github](https://github.com/ReyBroncas) - bek@ucu.edu.ua
+- Markiyan Valyavka - [github](https://github.com/markvalyavka) - valyavka@ucu.edu.ua
+- Andrew Bek - [github](https://github.com/ReyBroncas) - bek@ucu.edu.ua
 
 Project Link: [https://github.com/markvalyavka/cheaply_route_app](https://github.com/markvalyavka/cheaply_route_app)
 
