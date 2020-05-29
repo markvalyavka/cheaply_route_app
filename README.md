@@ -42,8 +42,12 @@ git clone https://github.com/markvalyavka/cheaply_route_app.git
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+### Example of main page:
+![Приклад головної сторінки](https://github.com/markvalyavka/cheaply_route_app/blob/master/examples/main_page.png)
+### Example of the result page:
+![Приклад результату](https://github.com/markvalyavka/cheaply_route_app/blob/master/examples/result_page.png)
+![Приклад результату](https://github.com/markvalyavka/cheaply_route_app/blob/master/examples/result_page_2.png)
 
-Usage examples in progress..
 
 
 
