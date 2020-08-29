@@ -6,9 +6,9 @@ Module to retrieve route data
 import urllib.request
 import urllib.parse
 import json
+from hidden import map_key_auth
 
-
-map_key = "***"
+map_key = map_key_auth
 DISTANCE_MATRIX_BASE_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?"
 GEOCODING_BASE_URL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?"
 
