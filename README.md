@@ -2,8 +2,7 @@
 [![made-with-python][made-with-python-shield]][made-with-python-url]
 [![MIT License][license-shield]][license-url]
 
-**[Website](https://cheaplyroutes.herokuapp.com/)**
-
+[CheaplyRoutes website](https://cheaplyroutes.herokuapp.com/) (not supported anymore)
 
 
 
